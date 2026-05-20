@@ -3,26 +3,44 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep, time
+import random
+from selenium_stealth import stealth
+import os
 
 URL = "https://orteil.dashnet.org/cookieclicker/"
+user_data_dir = "Users/muffin/Library/Application Support/Google/Chrome/Profile 1"
+
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option("detach", True)
+chrome_options.add_argument("start-maximized")
+chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_options.add_experimental_option("useAutomationExtension", False)
+chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
 driver = webdriver.Chrome(options=chrome_options)
+driver.maximize_window()
+stealth(driver,
+    languages=["en-US", "en"],
+    vendor="Google Inc.",
+    platform="Win32",
+    webgl_vendor="Intel Inc.",
+    renderer="Intel Iris OpenGL Engine",
+    fix_hairline=True)
+
 driver.get(URL)
 
-sleep(3)
+sleep(random.uniform(3, 7))
 
 print("Looking for language selection ....")
 try:
     language_button = driver.find_element(by=By.ID, value="langSelect-EN")
     language_button.click()
-    sleep(3)
+    sleep(random.uniform(3, 7))
 except NoSuchElementException:
     print("No language selection found")
 
-sleep(3)
+sleep(random.uniform(3, 7))
 
 cookie = driver.find_element(by=By.ID, value="bigCookie")
 store_items = [f"product{i}" for i in range(18)]
