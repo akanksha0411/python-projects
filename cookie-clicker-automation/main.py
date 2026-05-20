@@ -8,7 +8,7 @@ from selenium_stealth import stealth
 import os
 
 URL = "https://orteil.dashnet.org/cookieclicker/"
-user_data_dir = "Users/muffin/Library/Application Support/Google/Chrome/Profile 1"
+user_data_dir = os.path.join(os.getcwd() + "chrome_profile")
 
 
 chrome_options = webdriver.ChromeOptions()
